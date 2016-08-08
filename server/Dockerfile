@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends openjdk-7-jre-h
 ADD https://github.com/cloudnautique/giddyup/releases/download/v0.10.0/giddyup /usr/bin/
 ADD https://github.com/rancher/cluster-manager/releases/download/v0.1.5/cluster-manager /usr/bin/
 RUN chmod +x /usr/bin/giddyup /usr/bin/cluster-manager
-COPY bin/* /usr/bin/
+COPY server/bin/* /usr/bin/
 
 ENV CATTLE_HOME /var/lib/cattle
 ENV DEFAULT_CATTLE_API_UI_INDEX //releases.rancher.com/ui/1.2.5
@@ -25,12 +25,12 @@ ENV CATTLE_API_UI_URL //releases.rancher.com/api-ui/1.0.7
 ENV CATTLE_DB_CATTLE_DATABASE mysql
 ENV CATTLE_USE_LOCAL_ARTIFACTS true
 ENV no_proxy localhost,127.0.0.1,localaddress,.localdomain.com
-ADD artifacts /usr/share/cattle
+ADD server/artifacts /usr/share/cattle
 
 ADD service /service
 ENV S6_SERVICE_DIR /service
 
-COPY target/*static.tar.gz /s6-statics/
+COPY server/target/*static.tar.gz /s6-statics/
 
 EXPOSE 8080
 ENV CATTLE_HOST_API_PROXY_MODE embedded
