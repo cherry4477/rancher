@@ -27,7 +27,7 @@ ENV CATTLE_USE_LOCAL_ARTIFACTS true
 ENV no_proxy localhost,127.0.0.1,localaddress,.localdomain.com
 ADD server/artifacts /usr/share/cattle
 
-ADD service /service
+ADD server/service /service
 ENV S6_SERVICE_DIR /service
 
 COPY server/target/*static.tar.gz /s6-statics/
